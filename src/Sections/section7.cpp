@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../jasper/jasper.h"
+#include "jasper/jasper.h"
 
 #include "section7.h"
 #include "../grib2data.h"

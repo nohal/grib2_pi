@@ -69,7 +69,114 @@ INCLUDE(${wxWidgets_USE_FILE})
 
 FIND_PACKAGE(Gettext REQUIRED)
 
-FIND_PACKAGE(Jasper REQUIRED)
+IF(NOT WIN32)
+  FIND_PACKAGE(Jasper REQUIRED)
+ELSE(NOT WIN32)
+	SET(SRC_JASPER
+            src/libjasper/dummy.c
+            src/libjasper/base/jas_cm.c
+            src/libjasper/base/jas_debug.c
+            src/libjasper/base/jas_getopt.c
+            src/libjasper/base/jas_icc.c
+            src/libjasper/base/jas_iccdata.c
+            src/libjasper/base/jas_image.c
+            src/libjasper/base/jas_init.c
+            src/libjasper/base/jas_malloc.c
+            src/libjasper/base/jas_seq.c
+            src/libjasper/base/jas_stream.c
+            src/libjasper/base/jas_string.c
+            src/libjasper/base/jas_tmr.c
+            src/libjasper/base/jas_tvp.c
+            src/libjasper/base/jas_version.c
+
+            src/libjasper/bmp/bmp_cod.c
+            src/libjasper/bmp/bmp_cod.h
+            src/libjasper/bmp/bmp_dec.c
+            src/libjasper/bmp/bmp_enc.c
+            src/libjasper/bmp/bmp_enc.h
+
+            src/libjasper/jp2/jp2_cod.c
+            src/libjasper/jp2/jp2_cod.h
+            src/libjasper/jp2/jp2_dec.c
+            src/libjasper/jp2/jp2_dec.h
+            src/libjasper/jp2/jp2_enc.c
+
+            src/libjasper/jpc/jpc_bs.c
+            src/libjasper/jpc/jpc_bs.h
+            src/libjasper/jpc/jpc_cod.h
+            src/libjasper/jpc/jpc_cs.c
+            src/libjasper/jpc/jpc_cs.h
+            src/libjasper/jpc/jpc_dec.c
+            src/libjasper/jpc/jpc_dec.h
+            src/libjasper/jpc/jpc_enc.c
+            src/libjasper/jpc/jpc_enc.h
+            src/libjasper/jpc/jpc_fix.h
+            src/libjasper/jpc/jpc_flt.h
+            src/libjasper/jpc/jpc_math.c
+            src/libjasper/jpc/jpc_math.h
+            src/libjasper/jpc/jpc_mct.c
+            src/libjasper/jpc/jpc_mct.h
+            src/libjasper/jpc/jpc_mqcod.c
+            src/libjasper/jpc/jpc_mqcod.h
+            src/libjasper/jpc/jpc_mqdec.c
+            src/libjasper/jpc/jpc_mqdec.h
+            src/libjasper/jpc/jpc_mqenc.c
+            src/libjasper/jpc/jpc_mqenc.h
+            src/libjasper/jpc/jpc_qmfb.c
+            src/libjasper/jpc/jpc_qmfb.h
+            src/libjasper/jpc/jpc_t1cod.c
+            src/libjasper/jpc/jpc_t1cod.h
+            src/libjasper/jpc/jpc_t1dec.c
+            src/libjasper/jpc/jpc_t1dec.h
+            src/libjasper/jpc/jpc_t1enc.c
+            src/libjasper/jpc/jpc_t1enc.h
+            src/libjasper/jpc/jpc_t2cod.c
+            src/libjasper/jpc/jpc_t2cod.h
+            src/libjasper/jpc/jpc_t2dec.c
+            src/libjasper/jpc/jpc_t2dec.h
+            src/libjasper/jpc/jpc_t2enc.c
+            src/libjasper/jpc/jpc_t2enc.h
+            src/libjasper/jpc/jpc_tagtree.c
+            src/libjasper/jpc/jpc_tagtree.h
+            src/libjasper/jpc/jpc_tsfb.c
+            src/libjasper/jpc/jpc_tsfb.h
+            src/libjasper/jpc/jpc_util.c
+            src/libjasper/jpc/jpc_util.h
+
+#            src/libjasper/jpg/jpg_cod.h
+#            src/libjasper/jpg/jpg_dec.c
+#            src/libjasper/jpg/jpg_dummy.c
+#            src/libjasper/jpg/jpg_enc.c
+#            src/libjasper/jpg/jpg_enc.h
+#            src/libjasper/jpg/jpg_jpeglib.h
+#            src/libjasper/jpg/jpg_val.c
+
+            src/libjasper/mif/mif_cod.c
+            src/libjasper/mif/mif_cod.h
+
+            src/libjasper/pgx/pgx_cod.c
+            src/libjasper/pgx/pgx_cod.h
+            src/libjasper/pgx/pgx_dec.c
+            src/libjasper/pgx/pgx_enc.c
+            src/libjasper/pgx/pgx_enc.h
+
+            src/libjasper/pnm/pnm_cod.c
+            src/libjasper/pnm/pnm_cod.h
+            src/libjasper/pnm/pnm_dec.c
+            src/libjasper/pnm/pnm_enc.c
+            src/libjasper/pnm/pnm_enc.h
+
+            src/libjasper/ras/ras_cod.c
+            src/libjasper/ras/ras_cod.h
+            src/libjasper/ras/ras_dec.c
+            src/libjasper/ras/ras_enc.c
+            src/libjasper/ras/ras_enc.h
+    )
+    ADD_LIBRARY(LIB_JASPER ${SRC_JASPER})
+
+    INCLUDE_DIRECTORIES(${PLUGIN_SOURCE_DIR}/src/libjasper/include)
+ENDIF(NOT WIN32)
+
 INCLUDE_DIRECTORIES(${JASPER_INCLUDE_DIR})
 
 # For convenience we define the sources as a variable. You can add 
@@ -116,6 +223,7 @@ ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_GRIB})
 
 IF(WIN32)
   SET(OPENCPN_IMPORT_LIB "../../${CMAKE_CFG_INTDIR}/${PARENT}")
+  TARGET_LINK_LIBRARIES( ${PACKAGE_NAME} LIB_JASPER ${OPENCPN_IMPORT_LIB} )
   ADD_DEPENDENCIES(${PACKAGE_NAME} ${PARENT})
 ENDIF(WIN32)
 

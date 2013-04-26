@@ -5,7 +5,12 @@ Prerequisities
 --------------
 Jasper library has to be installed
 Ubuntu Linux: sudo apt-get libjasper-dev
-Windows and other nixes: Consult http://www.ece.uvic.ca/~frodo/jasper/
+Other *nixes: Consult http://www.ece.uvic.ca/~frodo/jasper/
+
+Windows notes:
+- JasPer is not exactly dynamic linking ready...
+- The Makefiles were deleted from the embedded version and jas_config.h was replaced with jas_config2.h and extended with "#define EXCLUDE_JPG_SUPPORT" to minimize the dependencies. 
+- TODO: The embedded libjasper can and should be further stripped.
 
 Compiling
 =========
